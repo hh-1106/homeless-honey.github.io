@@ -12,9 +12,9 @@ function setup() {
 function draw() {
   background(200, 0, 200)
   fill(0,255,255)
-  rect(100, 100, 60, 60, 10)
+  rect(x, y, 60, 60, 10)
 
-//   x += random(-5,5)
-//   y += random(-5,5)
+  x += random(-5,5)
+  y += random(-5,5)
 
 }
