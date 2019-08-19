@@ -7,5 +7,6 @@ function setup() {
 
 function draw() {
   background(200, 0, 200)
+  fill(0,255,255)
   rect(200, 200, 100, 100, 10)
 }
