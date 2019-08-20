@@ -6,7 +6,7 @@ function setup() {
   createCanvas(400, 400)
   rectMode(CENTER)
 
-  createP('xswl')
+  // createP('xswl')
   createP('11.13')
 }
 
