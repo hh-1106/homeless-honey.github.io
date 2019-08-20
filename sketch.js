@@ -7,6 +7,7 @@ function setup() {
   rectMode(CENTER)
 
   createP('xswl')
+  createP('11.13')
 }
 
 function draw() {
