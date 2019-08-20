@@ -14,6 +14,17 @@ function setup() {
   song.loop()
 }
 
+function mousePressed() {
+  if (song.isPlaying()) {
+    // .isPlaying() returns a boolean
+    song.pause(); // .play() will resume from .pause() position
+  } else {
+    song.play();
+  }
+}
+
+
+
 function draw() {
   background('brown')
   let t = frameCount / 60 // update time
