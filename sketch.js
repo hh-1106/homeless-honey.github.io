@@ -7,7 +7,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(displayWidth, displayHeight)
+  createCanvas(1920, 1080)
   fill(240)
   noStroke()
 
