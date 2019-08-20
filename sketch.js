@@ -7,7 +7,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(414, 736)
+  createCanvas(1520, 780)
   fill(240)
   noStroke()
 
