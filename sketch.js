@@ -14,6 +14,9 @@ function draw() {
   fill(0,255,255)
   rect(x, y, 60, 60, 10)
 
+
+  fill(0,155,255)
+  rect(x/2, y/2, 60, 60, 10)
   x += random(-5,5)
   y += random(-5,5)
 
