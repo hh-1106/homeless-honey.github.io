@@ -1,75 +1,56 @@
-var song
-let snowflakes = [] // array to hold snowflake objects
+let video
+let imgs = []
+let bgm, bugu
+var candyRain
+var rabbit
 
-
-function preload() {
-  song = loadSound('assets/Chrismas.mp3')
+function preload(){
+  for(let i=0; i<6; i++){
+    imgs[i] = loadImage("data/img/" + i + ".png")
+  }
+  bgm  = loadSound("data/music/bgm.mp3")
+  bugu = loadSound("data/music/bugu.wav")
 }
 
 function setup() {
-  createCanvas(1520, 780)
-  fill(240)
-  noStroke()
+  createCanvas(1200, 849)
+  colorMode(HSB, 360, 100, 100, 100)
+  imageMode(CENTER)
 
-  song.loop()
-}
+  bgm.loop()
+  video = createCapture(VIDEO)
+  video.hide()
+  console.log(video.width, video.height)
 
-function mousePressed() {
-  if (song.isPlaying()) {
-    // .isPlaying() returns a boolean
-    song.pause(); // .play() will resume from .pause() position
-  } else {
-    song.play();
+  poseNet = ml5.poseNet(video, modelLoaded)
+  poseNet.on('pose', gotPoses)
+
+  for(var img of imgs){
+    img.resize(width, height)
   }
+
+  candyRain = new CandyRain()
+  rabbit = new Rabbit()
+  background(30)
 }
-
-
 
 function draw() {
-  background('brown')
-  let t = frameCount / 60 // update time
+  background(30)
+  // image(video,0,0,width, height)
+  push()
+  translate(width*0.5, height*0.5)
+  image(imgs[0] ,0, 0)
+  candyRain.update()
+  candyRain.show()
+  image(imgs[1] ,0, 0)
+  image(imgs[2] ,0, 0)
+  image(imgs[3] ,0, 0)
+  rabbit.update()
+  rabbit.show()
+  image(imgs[5] ,0, 0)
+  pop()
 
-  // create a random number of snowflakes each frame
-  for (let i = 0; i < random(5); i++) {
-    snowflakes.push(new snowflake()) // append snowflake object
-  }
-
-  // loop through snowflakes with a for..of loop
-  for (let flake of snowflakes) {
-    flake.update(t) // update snowflake position
-    flake.display() // draw snowflake
-  }
+  drawWrists()
 }
 
-// snowflake class
-function snowflake() {
-  // initialize coordinates
-  this.posX = 0
-  this.posY = random(-50, 0)
-  this.initialangle = random(0, 2 * PI)
-  this.size = random(2, 5)
 
-  // radius of snowflake spiral
-  // chosen so the snowflakes are uniformly spread out in area
-  this.radius = sqrt(random(pow(width / 2, 2)))
-
-  this.update = function(time) {
-    // x position follows a circle
-    let w = 0.6 // angular speed
-    let angle = w * time + this.initialangle
-    this.posX = width / 2 + this.radius * sin(angle)
-
-    // different size snowflakes fall at slightly different y speeds
-    this.posY += pow(this.size, 0.5)
-
-    // delete snowflake if past end of screen
-    if (this.posY > height) {
-      let index = snowflakes.indexOf(this)
-      snowflakes.splice(index, 1)
-    }
-  }
-
-  this.display = function() {
-    ellipse(this.posX, this.posY, this.size)
-  }
-}
